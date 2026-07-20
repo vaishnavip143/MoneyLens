@@ -1,0 +1,96 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: moneylens
+
+  # Database — uses H2 by default (zero config for dev)
+  # Switch to PostgreSQL in production
+  datasource:
+    url: jdbc:h2:mem:moneylens
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # Uncomment below for PostgreSQL (production)
+  # datasource:
+  #   url: jdbc:postgresql://localhost:5432/moneylens
+  #   driver-class-name: org.postgresql.Driver
+  #   username: postgres
+  #   password: yourpassword
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        # For PostgreSQL: org.hibernate.dialect.PostgreSQLDialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  # Thymeleaf
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+# ============================================================
+# MoneyLens Configuration
+# ============================================================
+moneylens:
+  digest:
+    cron: "0 0 8 * * *"   # 8 AM daily — change as needed
+
+# ============================================================
+# Gemini AI — Get your FREE key at:
+# https://aistudio.google.com/apikey
+# ============================================================
+gemini:
+  api:
+    key: ${GEMINI_API_KEY:AQ.Ab8RN6K1peL8AKn7r799n5hoyh6zTrjIKOwAG326i20qUiB9AQ}
+    url: https://generativelanguage.googleapis.com/v1beta/models
+    model: gemini-2.0-flash
+
+# ============================================================
+# SpringDoc OpenAPI (Swagger UI)
+# Access at: http://localhost:8080/swagger-ui.html
+# ============================================================
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+# ============================================================
+# Actuator — Health check endpoint
+# ============================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# ============================================================
+# Logging
+# ============================================================
+logging:
+  level:
+    com.moneylens: DEBUG
+    org.hibernate.SQL: WARN
