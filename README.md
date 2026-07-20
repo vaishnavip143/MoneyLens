@@ -48,17 +48,35 @@
 - A **free Gemini API key** — [Get yours here](https://aistudio.google.com/apikey)
 
 ### 1. Start the Backend
+
+**Option A: Linux / Mac (Git Bash)**
 ```bash
 cd moneylens
 
 # Set your Gemini API key:
-export GEMINI_API_KEY=your-key-here   # Linux/Mac
-set GEMINI_API_KEY=your-key-here      # Windows
+export GEMINI_API_KEY=your-key-here
 
 # Run Spring Boot
 mvn spring-boot:run
 ```
-Backend runs at http://localhost:8080
+
+**Option B: Windows CMD**
+```cmd
+cd C:\Users\YourName\Desktop\JAVA\moneylens
+
+REM If Maven is not in PATH, use the full path:
+set PATH=C:\Users\YourName\AppData\Local\Temp\apache-maven-3.9.6\bin;%PATH%
+
+REM Run Spring Boot
+mvn spring-boot:run -q
+```
+
+> ⚠️ **Maven not installed?** The project auto-downloads Maven to `%LOCALAPPDATA%\Temp\apache-maven-3.9.6\bin\mvn` when first run via Git Bash. Use that full path in CMD:
+> ```cmd
+> C:\Users\YourName\AppData\Local\Temp\apache-maven-3.9.6\bin\mvn spring-boot:run -q
+> ```
+
+Backend runs at **http://localhost:8080**
 
 ### 2. Start the React UI
 ```bash
